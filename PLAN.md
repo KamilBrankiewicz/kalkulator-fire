@@ -15,7 +15,7 @@
 **Zrobione (Faza 2 — polskie konta emerytalne i podatki):**
 - Model kubełkowy majątku: opodatkowane/OKI, IKE, IKZE, PPK — każdy kubełek symulowany osobno ze swoim traktowaniem podatkowym
 - Podatek Belki 19% od zysków portfela opodatkowanego (śledzenie bazy kosztowej wpłat)
-- OKI (Osobiste Konto Inwestycyjne, od 1.01.2027): zwolnienie z Belki zysków przypadających na aktywa do 100 tys. zł; uproszczenie — nadwyżka ponad limit liczona z Belką 19% (pomijamy alternatywny podatek od aktywów ~0,85%)
+- OKI (Osobiste Konto Inwestycyjne, projektowane wejście w życie 1.01.2027 — ustawę uchwalił Sejm 3.07.2026, czeka na Senat i podpis Prezydenta, więc nie jest jeszcze obowiązującym prawem): zwolnienie z Belki zysków przypadających na aktywa do 100 tys. zł; uproszczenie — nadwyżka ponad limit liczona z Belką 19% (pomijamy alternatywny podatek od aktywów ~0,85%)
 - IKZE: limit roczny (11 304 zł / 16 956 zł JDG, limity 2026 w stałej `LIMITS` w calc.js — aktualizować raz w roku), ulga PIT (12/32/19%) reinwestowana w portfel opodatkowany, ryczałt 10% przy wypłacie, dostępne od 65 lat
 - IKE: limit 28 260 zł, bez podatku przy wypłacie, dostępne od 60 lat
 - PPK: wpłata pracownika + pracodawcy (% pensji brutto) + dopłata państwa 240 zł/rok, dostępne od 60 lat (zakładamy wypłatę zgodną z ustawą = bez podatku; wcześniejszy zwrot nie jest modelowany)
