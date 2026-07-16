@@ -49,6 +49,19 @@ Warstwa danych (`storage.js`) używa wzorca encja z `id` + `createdAt`/`updatedA
 
 Logika domenowa (`calc.js`) zwraca kody błędów (`INVALID_AGE`, `EXPENSES_EXCEED_INCOME`, `UNREACHABLE`, ...), które `ui.js` mapuje na komunikaty po polsku — rozdzielenie "co się stało" od "jak to powiedzieć użytkownikowi".
 
+## Design
+
+Wygląd aplikacji pochodzi z projektu w Claude Design (claude.ai/design), zaimportowanego przez narzędzie
+DesignSync (projekt „Interactive FIRE app prototype”, plik `design_handoff_fire_redesign/Kalkulator FIRE.dc.html`).
+Mockup zawierał gotową logikę identyczną z `js/calc.js` — więc wdrożenie było czysto wizualne: ciemny motyw
+z gradientem limonka (#baff3d) → turkus (#00e08a), kolorowe akcenty per typ konta (IKZE fiolet #7c5cff,
+IKE turkus, PPK bursztyn #ffb648, OKI róż #ff5c8a), szklane karty z `backdrop-filter: blur()`, hero card
+z gradientową liczbą wieku FIRE i poświatą, segmentowy pasek struktury majątku. Tryb jasny to autorska
+adaptacja tej samej palety (nie było w mockupie) — ciemniejsze odcienie tych samych barw dla kontrastu na białym tle.
+
+Przy kolejnych redesignach: sprawdź `DesignSync method:list_projects` / `list_files`, żeby zobaczyć czy
+w projekcie pojawił się nowy plik `.dc.html` do zaimportowania.
+
 ## Hosting
 
 Repozytorium: https://github.com/KamilBrankiewicz/kalkulator-fire
