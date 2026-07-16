@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <meta name="theme-color" content="#2e7d32" />
+  <meta name="theme-color" content="#06070a" />
   <title>Kalkulator FIRE</title>
   <link rel="manifest" href="manifest.json" />
   <link rel="icon" href="icons/icon-192.svg" type="image/svg+xml" />
@@ -12,7 +12,7 @@
 <body>
   <div class="app">
     <header class="topbar">
-      <h1>Kalkulator FIRE</h1>
+      <h1><span class="brand-gradient-text">🔥 Kalkulator FIRE</span></h1>
       <p class="subtitle">Niezależność finansowa i wcześniejsza emerytura</p>
     </header>
 
@@ -22,7 +22,7 @@
         <div class="alert alert-danger" id="error-box"></div>
 
         <div class="card">
-          <h2>Twoje dane</h2>
+          <h2><span class="dot dot-lime"></span>Twoje dane</h2>
 
           <div class="row">
             <div class="field">
@@ -81,109 +81,114 @@
         </div>
 
         <div class="card">
-          <h2>Konta emerytalne i podatki</h2>
+          <h2><span class="dot dot-purple"></span>Konta emerytalne i podatki</h2>
           <p class="field-hint" style="margin-bottom:14px;">
             IKE i PPK są dostępne od 60. roku życia, IKZE od 65. — przy wcześniejszym FIRE okres do 60 lat
             musi pokryć portfel spoza kont emerytalnych (tzw. pomost).
           </p>
 
-          <h3 class="subsection">IKZE <span class="badge">od 65 lat · ulga PIT · 10% ryczałt przy wypłacie</span></h3>
-          <div class="row">
-            <div class="field">
-              <label for="balanceIKZE">Obecne saldo IKZE (PLN)</label>
-              <input type="number" id="balanceIKZE" value="0" min="0" step="1000" />
+          <div class="subsection-block subsection-ikze">
+            <h3 class="subsection">IKZE <span class="badge badge-ikze">od 65 lat · ulga PIT · 10% ryczałt przy wypłacie</span></h3>
+            <div class="row">
+              <div class="field">
+                <label for="balanceIKZE">Obecne saldo IKZE (PLN)</label>
+                <input type="number" id="balanceIKZE" value="0" min="0" step="1000" />
+              </div>
+              <div class="field">
+                <label for="ikzeMonthly">Wpłata miesięczna (PLN)</label>
+                <input type="number" id="ikzeMonthly" value="0" min="0" step="50" />
+              </div>
             </div>
-            <div class="field">
-              <label for="ikzeMonthly">Wpłata miesięczna (PLN)</label>
-              <input type="number" id="ikzeMonthly" value="0" min="0" step="50" />
+            <div class="row">
+              <div class="field">
+                <label for="pitRate">Twoja stawka PIT (do ulgi IKZE)</label>
+                <select id="pitRate">
+                  <option value="0.12" selected>12%</option>
+                  <option value="0.32">32%</option>
+                  <option value="0.19">19% (liniowy)</option>
+                </select>
+              </div>
+              <div class="field checkbox-field">
+                <label><input type="checkbox" id="ikzeSelfEmployed" /> Działalność gospodarcza (wyższy limit)</label>
+              </div>
+            </div>
+            <p class="field-hint" id="ikze-limit-hint"></p>
+          </div>
+
+          <div class="subsection-block subsection-ike">
+            <h3 class="subsection">IKE <span class="badge badge-ike">od 60 lat · bez podatku Belki</span></h3>
+            <div class="row">
+              <div class="field">
+                <label for="balanceIKE">Obecne saldo IKE (PLN)</label>
+                <input type="number" id="balanceIKE" value="0" min="0" step="1000" />
+              </div>
+              <div class="field">
+                <label for="ikeMonthly">Wpłata miesięczna (PLN)</label>
+                <input type="number" id="ikeMonthly" value="0" min="0" step="50" />
+              </div>
             </div>
           </div>
-          <div class="row">
-            <div class="field">
-              <label for="pitRate">Twoja stawka PIT (do ulgi IKZE)</label>
-              <select id="pitRate">
-                <option value="0.12" selected>12%</option>
-                <option value="0.32">32%</option>
-                <option value="0.19">19% (liniowy)</option>
-              </select>
-            </div>
+
+          <div class="subsection-block subsection-ppk">
+            <h3 class="subsection">PPK <span class="badge badge-ppk">od 60 lat · dopłaty pracodawcy i państwa</span></h3>
             <div class="field checkbox-field">
-              <label><input type="checkbox" id="ikzeSelfEmployed" /> Działalność gospodarcza (wyższy limit)</label>
+              <label><input type="checkbox" id="ppkEnabled" /> Uczestniczę w PPK</label>
             </div>
-          </div>
-          <p class="field-hint" id="ikze-limit-hint"></p>
-
-          <h3 class="subsection">IKE <span class="badge">od 60 lat · bez podatku Belki</span></h3>
-          <div class="row">
-            <div class="field">
-              <label for="balanceIKE">Obecne saldo IKE (PLN)</label>
-              <input type="number" id="balanceIKE" value="0" min="0" step="1000" />
-            </div>
-            <div class="field">
-              <label for="ikeMonthly">Wpłata miesięczna (PLN)</label>
-              <input type="number" id="ikeMonthly" value="0" min="0" step="50" />
-            </div>
-          </div>
-
-          <h3 class="subsection">PPK <span class="badge">od 60 lat · dopłaty pracodawcy i państwa</span></h3>
-          <div class="field checkbox-field">
-            <label><input type="checkbox" id="ppkEnabled" /> Uczestniczę w PPK</label>
-          </div>
-          <div id="ppk-fields" style="display:none;">
-            <div class="row">
-              <div class="field">
-                <label for="grossSalary">Pensja brutto miesięcznie (PLN)</label>
-                <input type="number" id="grossSalary" value="10000" min="0" step="500" />
+            <div id="ppk-fields" style="display:none;">
+              <div class="row">
+                <div class="field">
+                  <label for="grossSalary">Pensja brutto miesięcznie (PLN)</label>
+                  <input type="number" id="grossSalary" value="10000" min="0" step="500" />
+                </div>
+                <div class="field">
+                  <label for="balancePPK">Obecne saldo PPK (PLN)</label>
+                  <input type="number" id="balancePPK" value="0" min="0" step="1000" />
+                </div>
               </div>
-              <div class="field">
-                <label for="balancePPK">Obecne saldo PPK (PLN)</label>
-                <input type="number" id="balancePPK" value="0" min="0" step="1000" />
-              </div>
-            </div>
-            <div class="row">
-              <div class="field">
-                <label for="ppkEmployeePct">Wpłata własna (% brutto)</label>
-                <input type="number" id="ppkEmployeePct" value="2" min="0.5" max="4" step="0.5" />
-              </div>
-              <div class="field">
-                <label for="ppkEmployerPct">Wpłata pracodawcy (% brutto)</label>
-                <input type="number" id="ppkEmployerPct" value="1.5" min="1.5" max="4" step="0.5" />
+              <div class="row">
+                <div class="field">
+                  <label for="ppkEmployeePct">Wpłata własna (% brutto)</label>
+                  <input type="number" id="ppkEmployeePct" value="2" min="0.5" max="4" step="0.5" />
+                </div>
+                <div class="field">
+                  <label for="ppkEmployerPct">Wpłata pracodawcy (% brutto)</label>
+                  <input type="number" id="ppkEmployerPct" value="1.5" min="1.5" max="4" step="0.5" />
+                </div>
               </div>
             </div>
           </div>
 
-          <h3 class="subsection">OKI <span class="badge">od 2027 · bez Belki do 100 tys. zł</span></h3>
-          <div class="field checkbox-field">
-            <label><input type="checkbox" id="okiEnabled" /> Uwzględnij OKI dla oszczędności poza kontami emerytalnymi</label>
+          <div class="subsection-block subsection-oki">
+            <h3 class="subsection">OKI <span class="badge badge-oki">od 2027 · bez Belki do 100 tys. zł</span></h3>
+            <div class="field checkbox-field">
+              <label><input type="checkbox" id="okiEnabled" /> Uwzględnij OKI dla oszczędności poza kontami emerytalnymi</label>
+            </div>
+            <p class="field-hint">
+              Osobiste Konto Inwestycyjne (od 1.01.2027): zyski z aktywów do 100 tys. zł zwolnione z podatku Belki.
+              Uproszczenie: nadwyżkę ponad limit liczymy z Belką 19% (pomijamy alternatywny podatek od aktywów ~0,85%).
+            </p>
           </div>
-          <p class="field-hint">
-            Osobiste Konto Inwestycyjne (od 1.01.2027): zyski z aktywów do 100 tys. zł zwolnione z podatku Belki.
-            Uproszczenie: nadwyżkę ponad limit liczymy z Belką 19% (pomijamy alternatywny podatek od aktywów ~0,85%).
-          </p>
         </div>
 
-        <div class="result-grid">
-          <div class="result-tile wide primary">
-            <div class="label">Wiek osiągnięcia FIRE</div>
-            <div class="value" id="result-fire-age">—</div>
+        <div class="hero-card">
+          <div class="hero-glow"></div>
+          <div class="hero-label">Wiek osiągnięcia FIRE</div>
+          <div class="hero-value brand-gradient-text" id="result-fire-age">—</div>
+          <div class="hero-chips">
+            <div class="hero-chip">
+              <div class="chip-label">Cel FIRE</div>
+              <div class="chip-value" id="result-fire-number">—</div>
+            </div>
+            <div class="hero-chip">
+              <div class="chip-label">Coast FIRE</div>
+              <div class="chip-value" id="result-coast-age">—</div>
+            </div>
+            <div class="hero-chip">
+              <div class="chip-label">Zakres ±2pp</div>
+              <div class="chip-value" id="result-sensitivity">—</div>
+            </div>
           </div>
-          <div class="result-tile">
-            <div class="label">FIRE number (cel)</div>
-            <div class="value" id="result-fire-number">—</div>
-            <p class="field-hint" id="result-fire-number-nominal"></p>
-          </div>
-          <div class="result-tile">
-            <div class="label">Coast FIRE od wieku</div>
-            <div class="value" id="result-coast-age">—</div>
-          </div>
-          <div class="result-tile wide">
-            <div class="label">Zakres (stopa zwrotu ±2pp)</div>
-            <div class="value" id="result-sensitivity">—</div>
-          </div>
-          <div class="result-tile wide">
-            <div class="label">Struktura majątku netto w momencie FIRE</div>
-            <div class="value breakdown" id="result-breakdown">—</div>
-          </div>
+          <p class="hero-nominal" id="result-fire-number-nominal"></p>
         </div>
 
         <div class="alert alert-warning" id="bridge-warning">
@@ -191,8 +196,14 @@
           dopiero w wieku 60/65 lat. Zwiększ oszczędności poza kontami emerytalnymi, aby przejść na FIRE wcześniej.
         </div>
 
+        <div class="card" id="breakdown-card" style="display:none;">
+          <h2>Struktura majątku netto przy FIRE</h2>
+          <div class="breakdown-bar" id="breakdown-bar"></div>
+          <div id="breakdown-rows"></div>
+        </div>
+
         <div class="card">
-          <h2>Wzrost majątku w czasie</h2>
+          <h2><span class="dot dot-teal"></span>Wzrost majątku w czasie</h2>
           <div class="chart-wrap"><canvas id="growth-chart"></canvas></div>
           <p class="field-hint" style="margin-top:10px;">
             Wykres w dzisiejszych złotówkach (wartości realne, po uwzględnieniu inflacji).

@@ -66,6 +66,8 @@ const UI = (() => {
     return div.innerHTML;
   }
 
+  const BUCKET_COLORS = { taxable: 'var(--accent)', ike: 'var(--ike-color)', ikze: 'var(--ikze-color)', ppk: 'var(--ppk-color)' };
+
   function showError(codes) {
     const box = document.getElementById('error-box');
     if (!codes || codes.length === 0) {
@@ -73,7 +75,9 @@ const UI = (() => {
       box.innerHTML = '';
       return;
     }
-    box.innerHTML = codes.map((c) => ERROR_MESSAGES[c] || c).join('<br>');
+    box.innerHTML = codes
+      .map((c) => `<div class="alert-row"><span class="alert-bullet"></span>${ERROR_MESSAGES[c] || c}</div>`)
+      .join('');
     box.classList.add('show');
   }
 
@@ -83,23 +87,45 @@ const UI = (() => {
     document.getElementById('result-fire-age').textContent = '—';
     document.getElementById('result-coast-age').textContent = '—';
     document.getElementById('result-sensitivity').textContent = '—';
-    document.getElementById('result-breakdown').textContent = '—';
     document.getElementById('bridge-warning').classList.remove('show');
+    renderBreakdown(null);
   }
 
   function renderBreakdown(buckets) {
-    const el = document.getElementById('result-breakdown');
+    const card = document.getElementById('breakdown-card');
+    const bar = document.getElementById('breakdown-bar');
+    const rows = document.getElementById('breakdown-rows');
+
     if (!buckets) {
-      el.textContent = '—';
+      card.style.display = 'none';
       return;
     }
     const parts = [
-      ['Opodatkowane/OKI', buckets.taxable],
-      ['IKE', buckets.ike],
-      ['IKZE (po ryczałcie)', buckets.ikze],
-      ['PPK', buckets.ppk],
-    ].filter(([, v]) => v > 0.5);
-    el.innerHTML = parts.map(([name, v]) => `${name}: <strong>${formatMoney(v)}</strong>`).join('<br>');
+      ['taxable', 'Opodatkowane/OKI', buckets.taxable],
+      ['ike', 'IKE', buckets.ike],
+      ['ikze', 'IKZE (po ryczałcie)', buckets.ikze],
+      ['ppk', 'PPK', buckets.ppk],
+    ].filter(([, , v]) => v > 0.5);
+
+    if (parts.length === 0) {
+      card.style.display = 'none';
+      return;
+    }
+
+    const total = parts.reduce((sum, [, , v]) => sum + v, 0) || 1;
+    card.style.display = 'block';
+    bar.innerHTML = parts
+      .map(
+        ([key, , v]) =>
+          `<div class="breakdown-segment" style="width:${Math.max(1, (v / total) * 100)}%;background:${BUCKET_COLORS[key]}"></div>`
+      )
+      .join('');
+    rows.innerHTML = parts
+      .map(
+        ([key, label, v]) =>
+          `<div class="breakdown-row"><span class="breakdown-dot" style="background:${BUCKET_COLORS[key]}"></span><span class="breakdown-label">${label}</span><strong>${formatMoney(v)}</strong></div>`
+      )
+      .join('');
   }
 
   function renderCalculatorResult(inputs) {

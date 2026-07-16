@@ -70,7 +70,7 @@ const FireChart = (() => {
     if (growthChart) growthChart.destroy();
     const labels = series.map((p) => Math.round(p.age * 10) / 10);
     const data = series.map((p) => Math.round(p.capital));
-    const accent = cssVar('--accent', '#2e7d32');
+    const accent = cssVar('--accent', '#baff3d');
 
     growthChart = new Chart(canvas, {
       type: 'line',
@@ -81,16 +81,16 @@ const FireChart = (() => {
             label: 'Majątek netto',
             data,
             borderColor: accent,
-            backgroundColor: withAlpha(accent, 0.12),
+            backgroundColor: withAlpha(accent, 0.14),
             fill: true,
-            tension: 0.25,
+            tension: 0.3,
             pointRadius: 0,
-            borderWidth: 2,
+            borderWidth: 2.5,
           },
           {
             label: 'Cel FIRE',
             data: series.map(() => Math.round(target)),
-            borderColor: cssVar('--danger', '#c0392b'),
+            borderColor: cssVar('--danger', '#ff5c8a'),
             backgroundColor: 'transparent',
             borderDash: [6, 6],
             pointRadius: 0,
@@ -106,10 +106,10 @@ const FireChart = (() => {
   function renderComparisonChart(canvas, scenarioSeries) {
     if (compareChart) compareChart.destroy();
     const palette = [
-      cssVar('--accent', '#2e7d32'),
-      cssVar('--warning', '#e0a800'),
-      cssVar('--danger', '#c0392b'),
-      cssVar('--text-muted', '#888'),
+      cssVar('--accent', '#baff3d'),
+      cssVar('--ikze-color', '#7c5cff'),
+      cssVar('--ppk-color', '#ffb648'),
+      cssVar('--danger', '#ff5c8a'),
     ];
     const maxLen = Math.max(...scenarioSeries.map((s) => s.series.length));
     const labels = Array.from({ length: maxLen }, (_, i) => i);
@@ -121,7 +121,7 @@ const FireChart = (() => {
       backgroundColor: 'transparent',
       tension: 0.2,
       pointRadius: 0,
-      borderWidth: 2,
+      borderWidth: 2.5,
     }));
 
     compareChart = new Chart(canvas, {

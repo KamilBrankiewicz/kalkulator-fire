@@ -1,4 +1,4 @@
-const CACHE_NAME = 'fire-calc-v8';
+const CACHE_NAME = 'fire-calc-v9';
 const LOCAL_ASSETS = [
   './',
   './index.html',
