@@ -49,6 +49,12 @@ Warstwa danych (`storage.js`) używa wzorca encja z `id` + `createdAt`/`updatedA
 
 Logika domenowa (`calc.js`) zwraca kody błędów (`INVALID_AGE`, `EXPENSES_EXCEED_INCOME`, `UNREACHABLE`, ...), które `ui.js` mapuje na komunikaty po polsku — rozdzielenie "co się stało" od "jak to powiedzieć użytkownikowi".
 
+## Hosting
+
+Repozytorium: https://github.com/KamilBrankiewicz/kalkulator-fire
+Aplikacja live (GitHub Pages, gałąź `main`, katalog `/`): https://kamilbrankiewicz.github.io/kalkulator-fire/
+Deploy = push do `main` (Pages przebudowuje się automatycznie, ~1 min). Pamiętaj o bumpie `CACHE_NAME` w `sw.js` przy zmianach.
+
 ## Jak uruchomić
 
 Brak build stepu. Otworzyć `index.html` bezpośrednio w przeglądarce lub serwować statycznie: `node serve.cjs` (port 8743) — serwis worker wymaga `http(s)://` lub `localhost`, nie zarejestruje się z `file://` (błąd jest wyciszony, reszta aplikacji działa normalnie).
